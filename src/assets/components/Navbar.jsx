@@ -1,18 +1,22 @@
 
 const Navbar = () => {
-    return <div>
-    <div>
-        <h1>Logo</h1>
-        <ul className="nav-links font-bold text-lg text-gray-800 flex justify-between w-1/2 mx-auto py-4 bg-blue-800 text-white rounded-lg shadow-lg max-w-2xl "> 
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-        </ul>
-    </div>
-    </div>; 
-    
-    
+    return (
+       <nav className="sticky top-0 z-50 py-3 backdrop-blur boreder-b border-neutral-700/80">
+        <div className="container px-4 mx-auto relative text-sm">
+            <div className="flex justify-between items-center">
+                <div className="flex items-center flex-shrink-0">
+                    <h1 className="bg-blue">Trigon Engineering</h1>
 
-}
+                </div>
+                </div>
+                </div>
+                
+                
+
+       </nav>
+        
+       
+    );
+};
 
 export default Navbar;
