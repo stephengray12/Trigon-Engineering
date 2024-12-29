@@ -4,16 +4,16 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-       <nav className="sticky top-0 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gray-500">
-        <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center">
+       <nav className="sticky top-3 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gray-700 bg-opacity-40 m-4 ">
+        <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center ">
             <div className="flex items-center flex-shrink-0">
-                <h1 className="text-2xl font-bold text-green-900">Trigon Engineering</h1>
+                <h1 className="text-3xl font-bold text-white">Trigon Engineering</h1>
             </div>
             <div className="hidden md:flex space-x-4">
-                <a href="#home" className="text-white hover:text-green-500">Home</a>
-                <a href="#about" className="text-white hover:text-green-500">About</a>
-                <a href="#projects" className="text-white hover:text-green-500">Projects</a>
-                <a href="#contact" className="text-white hover:text-green-500">Contact</a>
+                <a href="#home" className="text-white text-lg hover:text-green-100 font-bold">Home |</a>
+                <a href="#about" className="text-white text-lg hover:text-green-100 font-bold">About |</a>
+                <a href="#projects" className="text-white text-lg hover:text-green-100 font-bold">Projects |</a>
+                <a href="#contact" className="text-white  text-xl hover:text-green-100 bg-blue-500 rounded-full p-1 border-2 border-black hover:shadow-lg hover:shadow-black ">Contact us</a>
             </div>
             <div className="md:hidden">
                 <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
@@ -23,12 +23,13 @@ const Navbar = () => {
                 </button>
             </div>
         </div>
+        <div className="md:hidden"></div>
         {isOpen && (
-            <div className="md:hidden">
-                <a href="#home" className="block text-white hover:text-green-500 py-2">Home</a>
-                <a href="#about" className="block text-white hover:text-green-500 py-2">About</a>
-                <a href="#projects" className="block text-white hover:text-green-500 py-2">Projects</a>
-                <a href="#contact" className="block text-white hover:text-green-500 py-2">Contact</a>
+            <div className="md:hidden bg-black opacity-90  items-center justify-center space-y-4 fixed right-0 w-1/2 text-center p-4 mt-4">
+                <a href="#home" className="block text-white hover:text-green-200 py-2">Home</a>
+                <a href="#about" className="block text-white hover:text-green-200 py-2">About</a>
+                <a href="#projects" className="block text-white hover:text-green-200 py-2">Projects</a>
+                <a href="#contact" className="block text-white hover:text-green-200 py-2 ">Contact</a>
             </div>
         )}
        </nav>
