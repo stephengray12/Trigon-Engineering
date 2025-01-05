@@ -1,6 +1,7 @@
 import Navbar from "./assets/components/Navbar";
 import Footer from "./assets/components/Footer";
 
+
 const App = () => {
   return (
     <div className="flex flex-col min-h-screen">
