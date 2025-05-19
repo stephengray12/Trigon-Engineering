@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -7,7 +9,11 @@ const Navbar = () => {
        <nav className="sticky top-3 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gray-700 bg-opacity-40 m-4 ">
         <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center ">
             <div className="flex items-center flex-shrink-0">
-                <h1 className="text-3xl font-bold text-white">Trigon Engineering</h1>
+                <h1 className="text-5xl font-bold text-stroke-blue-filled">
+  Trigon Engineering
+</h1>
+
+                        
             </div>
             <div className="hidden md:flex space-x-4">
                 <a href="#home" className="text-white text-lg hover:text-green-100 font-bold">Home |</a>
