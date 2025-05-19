@@ -5,17 +5,17 @@
 
 @layer utilities {
   .text-stroke-white {
-    -webkit-text-stroke: 1px rgb(3, 3, 3);
-    color: transparent;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+   
   }
 
   .text-stroke-blue {
-    -webkit-text-stroke: 1px royalblue;
-    color: transparent;
+    -webkit-text-stroke: 1px rgb(21, 18, 170);
+   
   }
 
   .text-stroke-blue-filled {
-    -webkit-text-stroke: 2px royalblue;
+    -webkit-text-stroke: 2px rgb(0, 0, 0);
     color: rgb(0, 0, 0);
   }
 }
