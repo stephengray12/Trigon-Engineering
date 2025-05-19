@@ -18,7 +18,6 @@ const Navbar = () => {
             <div className="hidden md:flex space-x-4">
                 <a href="#home" className="text-white text-lg hover:text-green-100 font-bold">Home |</a>
                 <a href="#about" className="text-white text-lg hover:text-green-100 font-bold">About |</a>
-                <a href="#projects" className="text-white text-lg hover:text-green-100 font-bold">Projects |</a>
                 <a href="#contact" className="text-white  text-xl hover:text-green-100 bg-blue-500 rounded-full p-1 border-2 border-black hover:shadow-lg hover:shadow-black ">Contact us</a>
             </div>
             <div className="md:hidden">
