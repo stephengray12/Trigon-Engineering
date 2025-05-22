@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ContactFormModal from '../ContactFormModal.jsx'; // adjust the path if needed
+import ContactFormModal from '../ContactFormModal'; // adjust the path if needed
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // for mobile menu
