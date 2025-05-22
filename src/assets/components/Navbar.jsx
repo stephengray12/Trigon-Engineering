@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import ContactFormModal from '../ContactFormModal.jsx'; // adjust the path if needed
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // for mobile menu
+  const [showModal, setShowModal] = useState(false); // for contact form modal
 
   return (
     <nav className="sticky top-3 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gray-700 bg-opacity-40 m-4">
@@ -16,7 +18,12 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4">
           <a href="#home" className="text-white text-lg hover:text-blue-400 font-bold">Home |</a>
           <a href="#about" className="text-white text-lg hover:text-blue-400 font-bold">About |</a>
-          <a href="#contact" className="text-white text-xl hover:text-green-100 bg-blue-500 rounded-full p-1 border-2 border-black hover:shadow-lg hover:shadow-black">Contact us</a>
+          <button
+            onClick={() => setShowModal(true)}
+            className="text-white text-xl hover:text-green-100 bg-blue-500 rounded-full px-4 py-1 border-2 border-black hover:shadow-lg hover:shadow-black"
+          >
+            Contact us
+          </button>
         </div>
 
         {/* Hamburger Button */}
@@ -43,7 +50,6 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden fixed top-0 right-0 w-3/4 h-full bg-black bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-6 p-6">
-          {/* Close Button */}
           <button
             onClick={() => setIsOpen(false)}
             className="absolute top-4 right-4 text-white text-3xl focus:outline-none"
@@ -52,12 +58,22 @@ const Navbar = () => {
             &times;
           </button>
 
-          {/* Menu Links */}
           <a href="#home" className="text-white text-lg hover:text-green-200">Home</a>
           <a href="#about" className="text-white text-lg hover:text-green-200">About</a>
-          <a href="#contact" className="text-white text-lg hover:text-green-200">Contact</a>
+          <button
+            onClick={() => {
+              setShowModal(true);
+              setIsOpen(false);
+            }}
+            className="text-white text-lg hover:text-green-200"
+          >
+            Contact
+          </button>
         </div>
       )}
+
+      {/* Contact Form Modal */}
+      <ContactFormModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </nav>
   );
 };
