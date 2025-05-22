@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ContactFormModal from '../ContactFormModal'; // adjust the path if needed
+import ContactFormModal from './contactformModal.jsx'; // adjust the path if needed
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // for mobile menu
@@ -58,14 +58,14 @@ const Navbar = () => {
             &times;
           </button>
 
-          <a href="#home" className="text-white text-lg hover:text-green-200">Home</a>
-          <a href="#about" className="text-white text-lg hover:text-green-200">About</a>
+          <a href="#home" className="text-white text-lg hover:text-blue-400">Home</a>
+          <a href="#about" className="text-white text-lg hover:text-blue-400">About</a>
           <button
             onClick={() => {
               setShowModal(true);
               setIsOpen(false);
             }}
-            className="text-white text-lg hover:text-green-200"
+            className="text-white text-lg hover:text-blue-400"
           >
             Contact
           </button>
