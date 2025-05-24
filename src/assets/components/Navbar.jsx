@@ -57,7 +57,7 @@ const Navbar = () => {
         <div className="md:hidden fixed top-0 right-0 w-3/4 h-full z-50 flex flex-col items-start p-8  ">
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-4 right-4 text-white text-3xl focus:outline-none"
+            className="absolute top-2 right-6 text-white text-3xl focus:outline-none bg-black rounded-full p-1 hover:bg-gray-800 transition-colors"
             aria-label="Close menu"
           >
             &times;
