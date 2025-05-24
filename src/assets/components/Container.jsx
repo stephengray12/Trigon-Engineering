@@ -2,7 +2,7 @@ const Container = () => {
   return (
     <div className="flex justify-center min-h-[50vh] md:min-h-[60vh] items-end pb-12">
       <div className="flex flex-wrap items-center justify-center gap-4">
-        <div className="bg-white p-4 rounded-lg shadow-lg w-80 h-80 hover:bg-blue-200">
+        <div className="bg-white p-4 rounded-lg shadow-lg w-80 h-80">
           <h1 className="text-white font-bold underline bg-gray-600 text-center">Products</h1>
           <ul>
             <li>Pumps</li>
@@ -13,7 +13,7 @@ const Container = () => {
           </ul>
         </div>
 
-        <div className="bg-white p-4 rounded-lg shadow-lg w-80 h-80 hover:bg-blue-200">
+        <div className="bg-white p-4 rounded-lg shadow-lg w-80 h-80">
           <h1 className="text-white font-bold underline bg-gray-600 text-center">Services</h1>
           <ul>
             <li>Sales</li>
@@ -27,7 +27,7 @@ const Container = () => {
           </p>
         </div>
 
-        <div className="bg-white p-4 rounded-lg shadow-lg w-80 h-80 hover:bg-blue-200">
+        <div className="bg-white p-4 rounded-lg shadow-lg w-80 h-80">
           <h1 className="text-white font-bold underline bg-gray-600 text-center">Manufacturers</h1>
           <ul>
             <li>AEROVENT</li>

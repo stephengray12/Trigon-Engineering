@@ -7,7 +7,7 @@ const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <nav className="sticky top-3 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gradient-to-r from-black via-gray-800 to-black m-4">
+    <nav className="sticky top-3 z-50 py-4 backdrop-blur border-b border-neutral-700/80 bg-gradient-to-r from-black via-gray-800 to-black m-4">
       <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center">
         <div className="flex items-center flex-shrink-0">
           <h1 className="text-3xl md:text-5xl font-bold text-stroke-blue text-white">
@@ -82,7 +82,7 @@ const Navbar = () => {
             }}
             className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
           >
-            <PenSquare className="w-5 h-5" /> Contact Form
+            <PenSquare className="w-5 h-5 " /> Contact Form
           </button>
         </div>
       )}

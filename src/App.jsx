@@ -34,8 +34,8 @@ const App = () => {
 
           {/* Welcome Text (Right on desktop) */}
           <div className="w-full md:w-1/2 text-gray-300 bg-gray-200 bg-opacity-20 p-8 rounded-md shadow-md">
-            <div className="w-full bg-gradient-to-r from-black via-gray-800 to-black text-center py-4 rounded-md mb-4">
-              <h1 className="text-4xl font-bold text-white">Welcome to Trigon!</h1>
+            <div className="w-full bg-gradient-to-r from-black via-gray-600 to-black text-center py-4 rounded-md mb-4">
+              <h1 className="text-3xl font-bold text-white">Welcome to Trigon!</h1>
             </div>
 
             <p className="mb-4 text-lg">
