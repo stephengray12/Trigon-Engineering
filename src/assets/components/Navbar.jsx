@@ -10,7 +10,7 @@ const Navbar = () => {
     <nav className="sticky top-3 z-50 py-4 backdrop-blur border-b border-neutral-700/80 bg-gradient-to-r from-black via-gray-800 to-black m-4">
       <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center">
         <div className="flex items-center flex-shrink-0">
-          <h1 className="text-3xl md:text-5xl font-bold text-stroke-blue text-white">
+          <h1 className="text-3xl md:text-5xl font-bold text-stroke-white text-blue-500">
             Trigon Engineering
           </h1>
         </div>
