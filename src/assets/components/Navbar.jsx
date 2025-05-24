@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { Home, Info, Phone, PenSquare } from 'lucide-react';
 import ContactFormModal from './contactformModal.jsx'; // adjust the path if needed
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); // for mobile menu
-  const [showModal, setShowModal] = useState(false); // for contact form modal
+  const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <nav className="sticky top-3 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gray-700 bg-opacity-40 m-4">
@@ -16,13 +17,17 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-4">
-          <a href="#home" className="text-white text-lg hover:text-blue-400 font-bold">Home |</a>
-          <a href="#about" className="text-white text-lg hover:text-blue-400 font-bold">About |</a>
+          <a href="#home" className="text-white text-lg hover:text-blue-400 font-bold flex items-center gap-1">
+            <Home className="w-5 h-5" /> Home |
+          </a>
+          <a href="#about" className="text-white text-lg hover:text-blue-400 font-bold flex items-center gap-1">
+            <Info className="w-5 h-5" /> About |
+          </a>
           <button
             onClick={() => setShowModal(true)}
-            className="text-white text-xl hover:text-green-100 bg-blue-500 rounded-full px-4 py-1 border-2 border-black hover:shadow-lg hover:shadow-black"
+            className="text-white text-xl hover:text-green-100 bg-blue-500 rounded-full px-4 py-1 border-2 border-black hover:shadow-lg hover:shadow-black flex items-center gap-2"
           >
-            Contact us
+            <PenSquare className="w-5 h-5" /> Contact Form
           </button>
         </div>
 
@@ -58,16 +63,20 @@ const Navbar = () => {
             &times;
           </button>
 
-          <a href="#home" className="text-white text-lg hover:text-blue-400">Home</a>
-          <a href="#about" className="text-white text-lg hover:text-blue-400">About</a>
+          <a href="#home" className="text-white text-lg hover:text-blue-400 flex items-center gap-2">
+            <Home className="w-5 h-5" /> Home
+          </a>
+          <a href="#about" className="text-white text-lg hover:text-blue-400 flex items-center gap-2">
+            <Info className="w-5 h-5" /> About
+          </a>
           <button
             onClick={() => {
               setShowModal(true);
               setIsOpen(false);
             }}
-            className="text-white text-lg hover:text-blue-400"
+            className="text-white text-lg hover:text-blue-400 flex items-center gap-2"
           >
-            Contact
+            <PenSquare className="w-5 h-5" /> Contact Form
           </button>
         </div>
       )}

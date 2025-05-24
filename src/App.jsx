@@ -13,21 +13,53 @@ const App = () => {
         {/* Quote Section */}
         <div className="p-6">
           <p className="text-xl md:text-2xl font-bold text-white text-center">
-            &quot;Trigon Engineering, Arkansas Premier distributor of industrial equipment and sales&quot;
+            &quot;Trigon Engineering, Arkansas&apos; Premier distributor of industrial equipment and sales&quot;
           </p>
         </div>
 
-        {/* Iframe Section - Small and Left-Aligned */}
-        <div className="px-6 pb-6 flex justify-start">
-          <div className="w-full max-w-md">
+        {/* Responsive Iframe + Welcome Text Section */}
+        <div className="flex flex-col md:flex-row px-6 gap-6 pb-6 items-start ">
+          {/* Iframe (Left on desktop) */}
+          <div className="w-ful  md:w-1/5">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3277.377234577377!2d-92.25245572279087!3d34.77127747289468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87d2bc693ded17d5%3A0x991920e79e7d2c63!2s1317%20N%20Hills%20Blvd%20%23401%2C%20North%20Little%20Rock%2C%20AR%2072114!5e0!3m2!1sen!2sus!4v1736118474899!5m2!1sen!2sus"
-              className="w-full h-64"
+              className="w-full h-64 rounded-md shadow-md"
               style={{ border: 0 }}
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
+          </div>
+
+          {/* Welcome Text (Right on desktop) */}
+          <div className="w-full md:w-1/2 text-gray-300 bg-gray-600 bg-opacity-20 p-8 rounded-md shadow-md">
+            <h1 className="text-4xl font-bold mb-4">Welcome to Trigon Engineering!</h1>
+
+            <p className="mb-4 text-lg">
+              We are a full-service manufacturer’s representative sales company, proudly
+              serving customers in Arkansas and the Mid-South since 1980. Trigon
+              specializes in the sale of engineered wet process equipment, representing
+              a broad range of pumps, valves, and related process systems. We also offer
+              specialized wastewater treatment equipment tailored to meet your specific
+              requirements.
+            </p>
+
+            <p className="mb-4 text-lg">
+              In addition to process industries, Trigon has extensive experience in the
+              HVAC market. We have provided industrial products to colleges, hospitals,
+              and other commercial facilities, working closely with physical plant
+              directors and consulting engineers across the region.
+            </p>
+
+            <p className="mb-4 text-lg">
+              Our service department is highly skilled, responsive, and easy to work
+              with. We repair and refurbish most pump models and fabricate both new and
+              retrofit skids to match our customers’ exact specifications.
+            </p>
+
+            <p className="text-lg font-semibold">
+              Thank you for visiting our website—we look forward to serving you!
+            </p>
           </div>
         </div>
 
