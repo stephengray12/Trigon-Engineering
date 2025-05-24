@@ -52,9 +52,9 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - 3/4 width, full black, top layer */}
       {isOpen && (
-        <div className="md:hidden fixed top-0 right-0 w-3/4 h-full bg-black bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-6 p-6">
+        <div className="md:hidden fixed top-0 right-0 w-3/4 h-full z-50 flex flex-col items-start p-8  ">
           <button
             onClick={() => setIsOpen(false)}
             className="absolute top-4 right-4 text-white text-3xl focus:outline-none"
@@ -63,10 +63,16 @@ const Navbar = () => {
             &times;
           </button>
 
-          <a href="#home" className="text-white text-lg hover:text-blue-400 flex items-center gap-2">
+          <a
+            href="#home"
+            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
+          >
             <Home className="w-5 h-5" /> Home
           </a>
-          <a href="#about" className="text-white text-lg hover:text-blue-400 flex items-center gap-2">
+          <a
+            href="#about"
+            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
+          >
             <Info className="w-5 h-5" /> About
           </a>
           <button
@@ -74,7 +80,7 @@ const Navbar = () => {
               setShowModal(true);
               setIsOpen(false);
             }}
-            className="text-white text-lg hover:text-blue-400 flex items-center gap-2"
+            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
           >
             <PenSquare className="w-5 h-5" /> Contact Form
           </button>
