@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Home, Info, Phone, PenSquare } from 'lucide-react';
+import { Home, Info, PenSquare } from 'lucide-react';
 import ContactFormModal from './contactformModal.jsx'; // adjust the path if needed
 
 const Navbar = () => {
@@ -7,7 +7,7 @@ const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <nav className="sticky top-3 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gray-700 bg-opacity-40 m-4">
+    <nav className="sticky top-3 z-50 py-3 backdrop-blur border-b border-neutral-700/80 bg-gradient-to-r from-black via-gray-800 to-black m-4">
       <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center">
         <div className="flex items-center flex-shrink-0">
           <h1 className="text-3xl md:text-5xl font-bold text-stroke-blue text-white">
