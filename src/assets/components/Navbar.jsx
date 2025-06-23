@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Home, Info, PenSquare } from 'lucide-react';
-import ContactFormModal from './contactformModal.jsx'; 
+import ContactFormModal from './contactformModal.jsx';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,12 +18,14 @@ const Navbar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-4">
-          <a href="#home" className="text-white text-lg hover:text-blue-400 font-bold flex items-center gap-1">
+          <Link to="/" className="text-white text-lg hover:text-blue-400 font-bold flex items-center gap-1">
             <Home className="w-5 h-5" /> Home |
-          </a>
-          <a href="#about" className="text-white text-lg hover:text-blue-400 font-bold flex items-center gap-1">
-            <Info className="w-5 h-5" /> About |
-          </a>
+          </Link>
+
+          <Link to="/about" className="text-white text-lg hover:text-blue-400 font-bold flex items-center gap-1">
+            <Info className="w-5 h-5" /> About
+          </Link>
+
           <button
             onClick={() => setShowModal(true)}
             className="text-white text-xl hover:text-green-100 bg-blue-500 rounded-full px-4 py-1 border-2 border-black hover:shadow-lg hover:shadow-black flex items-center gap-2"
@@ -52,9 +55,9 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu - 3/4 width, full black, top layer */}
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden fixed top-0 right-0 w-3/4 h-full z-50 flex flex-col items-start p-8  ">
+        <div className="md:hidden fixed top-0 right-0 w-3/4 h-full z-50 flex flex-col items-start p-8">
           <button
             onClick={() => setIsOpen(false)}
             className="absolute top-2 right-6 text-white text-3xl focus:outline-none bg-black rounded-full p-1 hover:bg-gray-800 transition-colors"
@@ -63,18 +66,22 @@ const Navbar = () => {
             &times;
           </button>
 
-          <a
-            href="#home"
+          <Link
+            to="/"
+            onClick={() => setIsOpen(false)}
             className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
           >
             <Home className="w-5 h-5" /> Home
-          </a>
-          <a
-            href="#about"
+          </Link>
+
+          <Link
+            to="/about"
+            onClick={() => setIsOpen(false)}
             className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
           >
             <Info className="w-5 h-5" /> About
-          </a>
+          </Link>
+
           <button
             onClick={() => {
               setShowModal(true);
@@ -82,7 +89,7 @@ const Navbar = () => {
             }}
             className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
           >
-            <PenSquare className="w-5 h-5 " /> Contact Form
+            <PenSquare className="w-5 h-5" /> Contact Form
           </button>
         </div>
       )}
