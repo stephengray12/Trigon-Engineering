@@ -3,6 +3,7 @@ import Footer from "./assets/components/Footer";
 import Container from "./assets/components/Container";
 import { Phone } from 'lucide-react';
 import './index.css';
+import About from "./assets/components/About";
 
 const App = () => {
   return (
