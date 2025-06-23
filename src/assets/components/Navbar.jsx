@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Home, Info, PenSquare } from 'lucide-react';
-import ContactFormModal from './contactformModal.jsx'; // adjust the path if needed
+import ContactFormModal from './contactformModal.jsx'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
