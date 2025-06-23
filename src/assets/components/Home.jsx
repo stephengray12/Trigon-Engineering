@@ -16,7 +16,7 @@ export default function Home() {
         {/* Iframe */}
         <div className="w-full md:w-1/5">
           <iframe
-            src="https://www.google.com/maps/embed?...your-full-link-here..."
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3277.377234577377!2d-92.25245572279087!3d34.77127747289468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87d2bc693ded17d5%3A0x991920e79e7d2c63!2s1317%20N%20Hills%20Blvd%20%23401%2C%20North%20Little%20Rock%2C%20AR%2072114!5e0!3m2!1sen!2sus!4v1736118474899!5m2!1sen!2sus"
             className="w-full h-64 rounded-md shadow-md"
             style={{ border: 0 }}
             allowFullScreen=""
@@ -31,7 +31,12 @@ export default function Home() {
             <h1 className="text-3xl font-bold text-white">Welcome to Trigon!</h1>
           </div>
           <p className="mb-4 text-lg">
-            We are a full-service manufacturer’s representative sales company...
+              We are a full-service manufacturer’s representative sales company, proudly
+              serving customers in Arkansas and the Mid-South since 1980. Trigon
+              specializes in the sale of engineered wet process equipment, representing
+              a broad range of pumps, valves, and related process systems. We also offer
+              specialized wastewater treatment equipment tailored to meet your specific
+              requirements.
           </p>
           {/* rest of your paragraphs here */}
           <p className="text-lg font-semibold mb-6">
