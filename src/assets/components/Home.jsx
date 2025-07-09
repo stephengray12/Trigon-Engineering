@@ -13,7 +13,7 @@ export default function Home() {
 
       {/* Responsive Iframe + Welcome Text Section */}
       <div className="flex flex-col md:flex-row px-6 gap-6 pb-6 items-start">
-        {/* Iframe */}
+        {/* Google Maps Iframe */}
         <div className="w-full md:w-1/5">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3277.377234577377!2d-92.25245572279087!3d34.77127747289468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87d2bc693ded17d5%3A0x991920e79e7d2c63!2s1317%20N%20Hills%20Blvd%20%23401%2C%20North%20Little%20Rock%2C%20AR%2072114!5e0!3m2!1sen!2sus!4v1736118474899!5m2!1sen!2sus"
@@ -30,7 +30,7 @@ export default function Home() {
           <div className="w-full bg-gradient-to-r from-black via-gray-600 to-black text-center py-4 rounded-md mb-4">
             <h1 className="text-3xl font-bold text-white">Welcome to Trigon!</h1>
           </div>
-          <p className="mb-4 text-lg">
+          <p className="mb-4 text-lg font-semibold text-gray-300 leading-relaxed bg-gray-800 bg-opacity-50 p-4 rounded-md shadow-md">
               We are a full-service manufacturer’s representative sales company, proudly
               serving customers in Arkansas and the Mid-South since 1980. Trigon
               specializes in the sale of engineered wet process equipment, representing
