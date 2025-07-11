@@ -8,7 +8,7 @@ import './index.css';
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen ">
         <Navbar />
 
         <Routes>

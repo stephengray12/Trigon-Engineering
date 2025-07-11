@@ -8,7 +8,7 @@ const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <nav className="sticky top-3 z-50 py-4 backdrop-blur border-b border-neutral-700/80 bg-gradient-to-r from-black via-gray-800 to-black m-4">
+    <nav className="sticky  top-3 z-50 py-4 bg-black bg-opacity-80 backdrop-blur-lg rounded-lg shadow-lg">
       <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center">
         <div className="flex items-center flex-shrink-0">
           <h1 className="text-3xl md:text-5xl font-bold text-stroke-white text-blue-500">
