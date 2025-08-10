@@ -54,57 +54,6 @@ npm run build
 # preview the production build
 npm run preview
 
-# (optional) lint
-npm run lint
-Project Structure
-php
-Copy
-Edit
-.
-├─ public/                 # static assets copied as-is
-├─ src/                    # React app source (components, pages, styles)
-├─ index.html              # Vite entry HTML
-├─ tailwind.config.js      # Tailwind config
-├─ postcss.config.js       # PostCSS pipeline
-├─ vite.config.js          # Vite configuration
-├─ eslint.config.js        # ESLint rules (may be .eslintrc.*)
-└─ package.json
-Tailwind Setup (quick reference)
-Ensure Tailwind scans your files:
-
-js
-Copy
-Edit
-// tailwind.config.js
-export default {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  theme: { extend: {} },
-  plugins: [],
-};
-And import Tailwind layers in your global stylesheet (e.g., src/index.css):
-
-css
-Copy
-Edit
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-SEO Checklist
-Set <title> and <meta name="description"> in index.html
-
-Add Open Graph / Twitter tags (title, description, image)
-
-Provide a favicon (e.g., /public/favicon.ico) and optional web manifest
-
-Ensure production is served over HTTPS with proper redirects (www ↔ apex)
-
-Deployment
-This is a static React app built by Vite; any static host works:
-
-Vercel / Netlify: connect repo → build npm run build → output dist/
-
-GitHub Pages: build locally and deploy the dist/ directory
-
 Roadmap
  Finalize content (services, about, contact)
 
