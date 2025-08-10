@@ -71,7 +71,7 @@ const ContactFormModal = ({ isOpen, onClose }) => {
       setTimeout(onClose, 1200);
     } catch (err) {
       setErrorMsg("Sorry, something went wrong. Please try again or call us.");
-      // eslint-disable-next-line no-console
+    
       console.error(err);
     } finally {
       setSending(false);
