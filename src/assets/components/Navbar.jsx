@@ -3,21 +3,35 @@ import { Warehouse, Info, PenSquare } from 'lucide-react';
 import ContactFormModal from './contactformModal.jsx';
 import { Link } from 'react-router-dom';
 
+// helper to build URLs to files in /public
+const pub = (p) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <nav className="sticky  top-3 z-50 py-4 bg-black bg-opacity-80 backdrop-blur-lg rounded-lg shadow-lg">
+    <nav className="sticky top-3 z-50 py-4 bg-black/80 backdrop-blur-lg rounded-lg shadow-lg">
       <div className="w-full px-4 mx-auto relative text-sm flex justify-between items-center">
-        <div className="flex items-center flex-shrink-0">
-          <h1 className="text-3xl md:text-5xl font-bold text-stroke-white text-blue-500">
+        {/* Brand: logo + name */}
+        <Link to="/" className="flex items-center gap-3 flex-shrink-0" aria-label="Trigon Engineering Home">
+          <img
+            src={pub('/favicon-128x128.png') }
+            alt="Trigon Engineering triangle logo"
+            className="w-10 h-10"
+            width="40"
+            height="40"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+          <span className="text-2xl md:text-4xl font-bold text-blue-500 leading-none">
             Trigon Engineering
-          </h1>
-        </div>
+          </span>
+        </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-4">
+        <div className="hidden md:flex items-center gap-4">
           <Link to="/" className="text-white text-lg hover:text-blue-400 font-bold flex items-center gap-1">
             <Warehouse className="w-5 h-5" /> Home |
           </Link>
@@ -34,21 +48,14 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Hamburger Button */}
+        {/* Hamburger */}
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(true)}
             className="text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-white"
             aria-label="Open menu"
           >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
@@ -57,7 +64,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden fixed top-0 right-0 w-3/4 h-full z-50 flex flex-col items-start p-8">
+        <div className="md:hidden fixed top-0 right-0 w-3/4 h-full z-50 flex flex-col items-start p-8 bg-black/95 backdrop-blur-lg">
           <button
             onClick={() => setIsOpen(false)}
             className="absolute top-2 right-6 text-white text-3xl focus:outline-none bg-black rounded-full p-1 hover:bg-gray-800 transition-colors"
@@ -66,10 +73,23 @@ const Navbar = () => {
             &times;
           </button>
 
+          {/* Mobile brand row */}
+          <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3 mb-6">
+            <img
+              src={pub('/favicon-128x128.png') }
+              alt="Trigon Engineering triangle logo"
+              className="w-8 h-8"
+              width="32"
+              height="32"
+              decoding="async"
+            />
+            <span className="text-xl font-bold text-blue-500">Trigon Engineering</span>
+          </Link>
+
           <Link
             to="/"
             onClick={() => setIsOpen(false)}
-            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
+            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded"
           >
             <Warehouse className="w-5 h-5" /> Home
           </Link>
@@ -77,7 +97,7 @@ const Navbar = () => {
           <Link
             to="/about"
             onClick={() => setIsOpen(false)}
-            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
+            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded"
           >
             <Info className="w-5 h-5" /> About
           </Link>
@@ -87,14 +107,13 @@ const Navbar = () => {
               setShowModal(true);
               setIsOpen(false);
             }}
-            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded bg-black"
+            className="text-white text-lg hover:bg-blue-900 flex items-center gap-2 w-full px-4 py-2 rounded"
           >
             <PenSquare className="w-5 h-5" /> Contact Form
           </button>
         </div>
       )}
 
-      {/* Contact Form Modal */}
       <ContactFormModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </nav>
   );
