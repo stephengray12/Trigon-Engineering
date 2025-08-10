@@ -1,6 +1,7 @@
 import Container from "./Container";
 import { Phone } from "lucide-react";
 import { Helmet } from "react-helmet-async";
+import { useEffect } from "react"; // ✅ add this
 
 const PHONE_DISPLAY = "501-312-2111"; // Update to correct business line
 const PHONE_TEL = "+15013122111";
@@ -8,6 +9,10 @@ const ADDRESS = "8020 B Counts Massie, North Little Rock, AR 72113";
 const SITE_URL = "https://www.trigonengineering.com";
 
 export default function Home() {
+  useEffect(() => {
+    document.title = "Trigon Engineering — Home"; // ✅ sets browser tab text
+  }, []);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -55,7 +60,6 @@ export default function Home() {
 
       {/* Hero / Contact section */}
       <section className="min-h-screen flex flex-col items-center justify-center px-4 py-12 gap-10">
-        {/* Embedded Map */}
         <iframe
           title={`Map to Trigon Engineering, ${ADDRESS}`}
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3277.377234577377!2d-92.25245572279087!3d34.77127747289468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87d2bc693ded17d5%3A0x991920e79e7d2c63!2s1317%20N%20Hills%20Blvd%20%23401%2C%20North%20Little%20Rock%2C%20AR%2072114!5e0!3m2!1sen!2sus!4v1736118474899!5m2!1sen!2sus"
@@ -65,7 +69,6 @@ export default function Home() {
           allowFullScreen
         />
 
-        {/* Welcome Card */}
         <div className="w-full max-w-3xl rounded-2xl shadow-2xl border border-white/15 bg-white/5 backdrop-blur-md text-gray-100 p-8">
           <h1 className="text-4xl font-bold text-center text-blue-400 mb-6">
             Welcome to Trigon Engineering
@@ -96,7 +99,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Products/Services */}
       <section aria-label="Products and Services">
         <Container />
       </section>

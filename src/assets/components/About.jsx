@@ -1,7 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 export default function About() {
+  useEffect(() => {
+    document.title = "Trigon Engineering — About";
+  }, []);
+
   const paragraphVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i) => ({
