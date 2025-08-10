@@ -1,41 +1,228 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import emailjs from "@emailjs/browser";
 
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
 const ContactFormModal = ({ isOpen, onClose }) => {
-  const formRef = useRef();
+  const formRef = useRef(null);
+  const firstFieldRef = useRef(null);
+  const closeBtnRef = useRef(null);
+  const [sending, setSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
-  const sendEmail = (e) => {
+  // Close on ESC and trap focus inside modal
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "Tab") {
+        // Simple focus trap
+        const focusable = modalRootRef.current?.querySelectorAll(
+          'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusable?.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKey);
+    // focus first field
+    setTimeout(() => firstFieldRef.current?.focus(), 0);
+
+    // prevent background scroll while open
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen, onClose]);
+
+  const modalRootRef = useRef(null);
+
+  const sendEmail = async (e) => {
     e.preventDefault();
+    setErrorMsg("");
+    setSuccessMsg("");
 
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formRef.current, 'YOUR_PUBLIC_KEY')
-      .then(() => {
-        alert("Message sent!");
-        onClose();
-      }, (error) => {
-        alert("Failed to send: " + error.text);
-      });
+    // Honeypot check
+    if (e.currentTarget.elements.bot_field.value) return;
+
+    try {
+      setSending(true);
+      await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY);
+      setSuccessMsg("Thanks! Your message has been sent.");
+      formRef.current.reset();
+      // Give the user a beat to read it, then close
+      setTimeout(onClose, 1200);
+    } catch (err) {
+      setErrorMsg("Sorry, something went wrong. Please try again or call us.");
+      // eslint-disable-next-line no-console
+      console.error(err);
+    } finally {
+      setSending(false);
+    }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 min-h-screen bg-black bg-opacity-70 flex items-center justify-center z-50">
-        {/* Modal Content */}
-      <div className="bg-white rounded-lg p-6 w-full max-w-md relative">
-        <button onClick={onClose} className="absolute top-2 right-3 text-xl font-bold">&times;</button>
-        <h2 className="text-xl font-bold mb-4">Contact Us</h2>
-        <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
-          <input type="text" name="user_name" placeholder="Your Name" className="w-full p-2 border rounded" required />
-          <input type="email" name="user_email" placeholder="Your Email" className="w-full p-2 border rounded" required />
-          <input type="tel" name="user_phone" placeholder="Phone Number" className="w-full p-2 border rounded" required />
-          <textarea name="message" placeholder="Purpose / Message" className="w-full p-2 border rounded" required />
-          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
-        </form>
+    <div
+      aria-hidden={!isOpen}
+      className="fixed inset-0 z-50"
+    >
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div
+        ref={modalRootRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-title"
+        aria-describedby="contact-desc"
+        className="relative mx-auto mt-24 w-[90%] max-w-md rounded-2xl border border-white/10 bg-neutral-900 text-white shadow-2xl"
+      >
+        <button
+          ref={closeBtnRef}
+          onClick={onClose}
+          className="absolute right-3 top-3 rounded-full p-1 text-xl leading-none text-gray-300 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          aria-label="Close contact form"
+        >
+          &times;
+        </button>
+
+        <div className="p-6">
+          <h2 id="contact-title" className="mb-1 text-2xl font-bold text-blue-400">
+            Contact Us
+          </h2>
+          <p id="contact-desc" className="mb-5 text-sm text-gray-300">
+            Tell us a bit about your project and how we can help.
+          </p>
+
+          {/* Status messages */}
+          {successMsg && (
+            <div className="mb-3 rounded-md border border-green-500/40 bg-green-500/10 px-3 py-2 text-sm text-green-300">
+              {successMsg}
+            </div>
+          )}
+          {errorMsg && (
+            <div className="mb-3 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+              {errorMsg}
+            </div>
+          )}
+
+          <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
+            {/* Honeypot (hidden) */}
+            <input
+              type="text"
+              name="bot_field"
+              className="hidden"
+              tabIndex="-1"
+              autoComplete="off"
+            />
+
+            <div>
+              <label htmlFor="user_name" className="mb-1 block text-sm text-gray-300">
+                Your Name
+              </label>
+              <input
+                ref={firstFieldRef}
+                id="user_name"
+                name="user_name"
+                type="text"
+                placeholder="Jane Doe"
+                autoComplete="name"
+                required
+                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/40"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="user_email" className="mb-1 block text-sm text-gray-300">
+                Email
+              </label>
+              <input
+                id="user_email"
+                name="user_email"
+                type="email"
+                placeholder="you@company.com"
+                autoComplete="email"
+                inputMode="email"
+                required
+                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/40"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="user_phone" className="mb-1 block text-sm text-gray-300">
+                Phone
+              </label>
+              <input
+                id="user_phone"
+                name="user_phone"
+                type="tel"
+                placeholder="(501) 312-2111"
+                autoComplete="tel"
+                inputMode="tel"
+                pattern="[\d\-\+\(\)\.\s]{7,}"
+                className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/40"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="mb-1 block text-sm text-gray-300">
+                Purpose / Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="How can we help?"
+                rows={5}
+                required
+                className="w-full resize-y rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-400/40"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={sending || !SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY}
+              className={`w-full rounded-full px-4 py-2 font-semibold transition
+                ${sending ? "bg-blue-400 cursor-wait" : "bg-blue-600 hover:bg-blue-700"}
+                ${(!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) ? "opacity-60 cursor-not-allowed" : ""}`}
+            >
+              {sending ? "Sending…" : "Send"}
+            </button>
+
+            {/* tiny footnote */}
+            <p className="mt-1 text-center text-xs text-gray-400">
+              We’ll never share your info. By submitting, you agree to be contacted about your request.
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );
 };
+
 ContactFormModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
