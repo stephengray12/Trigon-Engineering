@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import PropTypes from "prop-types";
 import emailjs from "@emailjs/browser";
 
@@ -7,31 +8,49 @@ const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 const ContactFormModal = ({ isOpen, onClose }) => {
+  const modalRootRef = useRef(null);
   const formRef = useRef(null);
   const firstFieldRef = useRef(null);
   const closeBtnRef = useRef(null);
+  const previouslyFocusedEl = useRef(null);
+
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  // Close on ESC and trap focus inside modal
+  // Close on ESC, trap focus, lock scroll, restore focus on close
   useEffect(() => {
     if (!isOpen) return;
 
+    previouslyFocusedEl.current = document.activeElement;
+
     const handleKey = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+
       if (e.key === "Tab") {
-        // Simple focus trap
         const focusable = modalRootRef.current?.querySelectorAll(
-          'a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])'
+          [
+            'a[href]:not([tabindex="-1"])',
+            'button:not([disabled]):not([tabindex="-1"])',
+            'textarea:not([disabled]):not([tabindex="-1"])',
+            'input:not([disabled]):not([tabindex="-1"])',
+            'select:not([disabled]):not([tabindex="-1"])',
+            '[tabindex]:not([tabindex="-1"])',
+          ].join(",")
         );
         if (!focusable?.length) return;
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
+        const active = document.activeElement;
+
+        if (e.shiftKey && active === first) {
           e.preventDefault();
           last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
+        } else if (!e.shiftKey && active === last) {
           e.preventDefault();
           first.focus();
         }
@@ -39,20 +58,25 @@ const ContactFormModal = ({ isOpen, onClose }) => {
     };
 
     document.addEventListener("keydown", handleKey);
-    // focus first field-
-    setTimeout(() => firstFieldRef.current?.focus(), 0);
 
-    // prevent background scroll while open
+    // Focus first field on open
+    setTimeout(() => {
+      (firstFieldRef.current || closeBtnRef.current)?.focus();
+    }, 0);
+
+    // prevent background scroll
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", handleKey);
       document.body.style.overflow = originalOverflow;
+      // restore focus
+      if (previouslyFocusedEl.current instanceof HTMLElement) {
+        previouslyFocusedEl.current.focus();
+      }
     };
   }, [isOpen, onClose]);
-
-  const modalRootRef = useRef(null);
 
   const sendEmail = async (e) => {
     e.preventDefault();
@@ -67,11 +91,9 @@ const ContactFormModal = ({ isOpen, onClose }) => {
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY);
       setSuccessMsg("Thanks! Your message has been sent.");
       formRef.current.reset();
-      // Give the user a beat to read it, then close
       setTimeout(onClose, 1200);
     } catch (err) {
       setErrorMsg("Sorry, something went wrong. Please try again or call us.");
-    
       console.error(err);
     } finally {
       setSending(false);
@@ -80,14 +102,12 @@ const ContactFormModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  return (
-    <div
-      aria-hidden={!isOpen}
-      className="fixed inset-0 z-50"
-    >
-      {/* Backdrop */}
+  // Render to body so it sits above everything (no bleed-through)
+  return createPortal(
+    <div className="fixed inset-0 z-[9999]" aria-hidden={!isOpen}>
+      {/* Solid black backdrop */}
       <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-black"
         onClick={onClose}
       />
 
@@ -117,17 +137,19 @@ const ContactFormModal = ({ isOpen, onClose }) => {
             Tell us a bit about your project and how we can help.
           </p>
 
-          {/* Status messages */}
-          {successMsg && (
-            <div className="mb-3 rounded-md border border-green-500/40 bg-green-500/10 px-3 py-2 text-sm text-green-300">
-              {successMsg}
-            </div>
-          )}
-          {errorMsg && (
-            <div className="mb-3 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
-              {errorMsg}
-            </div>
-          )}
+          {/* Status messages (aria-live for screen readers) */}
+          <div aria-live="polite" className="min-h-[1.5rem]">
+            {successMsg && (
+              <div className="mb-3 rounded-md border border-green-500/40 bg-green-500/10 px-3 py-2 text-sm text-green-300">
+                {successMsg}
+              </div>
+            )}
+            {errorMsg && (
+              <div className="mb-3 rounded-md border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300">
+                {errorMsg}
+              </div>
+            )}
+          </div>
 
           <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
             {/* Honeypot (hidden) */}
@@ -212,14 +234,14 @@ const ContactFormModal = ({ isOpen, onClose }) => {
               {sending ? "Sending…" : "Send"}
             </button>
 
-            {/* tiny footnote */}
             <p className="mt-1 text-center text-xs text-gray-400">
               We’ll never share your info. By submitting, you agree to be contacted about your request.
             </p>
           </form>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
