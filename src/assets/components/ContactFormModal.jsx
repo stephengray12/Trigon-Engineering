@@ -39,7 +39,7 @@ const ContactFormModal = ({ isOpen, onClose }) => {
     };
 
     document.addEventListener("keydown", handleKey);
-    // focus first field
+    // focus first field-
     setTimeout(() => firstFieldRef.current?.focus(), 0);
 
     // prevent background scroll while open
